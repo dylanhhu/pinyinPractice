@@ -16,45 +16,36 @@
 #    than once.
 # ==================
 
+
 import simpleaudio as simpAud
-import os
-import time
-import random
+import sys, os, time, random
+import test, func, learn
 
-CHUNK = 1024
+columns, rows = os.get_terminal_size(0)  # Get the screen size to be able to clear it.
 
-for root, dirs, files in os.walk("."):
-    for filename in files:
-        #if filename == "main.py":
-         #   files.remove("main.py")
-        #elif filename == ".DS_Store":
-        #    files.remove(".DS_Store")
-        if filename.find("wav") == -1:
-            files.remove(filename)
+func.clear(rows)  # Clear the screen
 
-print('files in folder:')
-for filename in files:
-    print(filename)
+print("Welcome to Dylan's Pinyin Learning Tool")
+print("Made with love by Dylan")
 
-print("number of files:")
-print(len(files))
+time.sleep(1)  # Sleep for 1 second so that user can read the text
 
-input("ready?")
+func.clear(rows)
 
-filesPlayed = []
+while True:
+    print("What do you want to do?")
+    print("Learn or Test")
+    print("L/T\n")
 
-for x in range(16):
-    if x == 0:
-        continue
+    userInput = input(">>>")
 
-    fileNo = random.randrange(0, len(files))
-    filesPlayed.append(files[fileNo])
-    
-    for y in range(3):
-        wave_obj = simpAud.WaveObject.from_wave_file(files[fileNo])
-        play_obj = wave_obj.play()
-        play_obj.wait_done()
-        time.sleep(0.75)
-
-for file in filesPlayed:
-    print(file)
+    if userInput == "L":
+        func.clear(rows)
+        learn.function()
+        func.clear(rows)
+    elif userInput == "T":
+        func.clear(rows)
+        test.function()
+        func.clear(rows)
+    else:
+        print("You typed an invalid character: " + str(userInput) + '\n')
